@@ -68,7 +68,19 @@ The test uses a temporary app profile and vault. It stubs only the native direct
 
 Publish **this directory as its own repository root**, including `.github` and `package-lock.json`. No sibling project or shared workspace is needed. The workflow runs on every push or manual dispatch using `macos-latest`, tests/builds, and uploads separate **arm64 (Apple Silicon)** and **x64 (Intel)** DMG and ZIP artifacts. Download them from the GitHub Actions run. ZIPs contain the `.app` bundles.
 
-Bundles are **unsigned**. Apple Developer signing and notarization credentials are not configured. Gatekeeper may require explicit approval for an unsigned download. macOS packaging runs remotely; development on Linux uses no Swift, Xcode, or macOS-only APIs.
+Bundles are **unsigned by default**. macOS packaging runs remotely; development on Linux uses no Swift, Xcode, or macOS-only APIs.
+
+### Install
+
+1. In the successful **Build Pomodoro Logs macOS** Actions run, download `pomodoro-logs-mac-arm64` for Apple Silicon or `pomodoro-logs-mac-x64` for Intel. Each download contains a DMG installer and a ZIP of the `.app`.
+2. Open the DMG and drag **Pomodoro Logs.app** to **Applications**. Alternatively, expand the app ZIP and move **Pomodoro Logs.app** to **Applications**.
+3. Eject the mounted DMG after installation. On first launch, configure the Obsidian vault in **SETUP [+] → CHOOSE FOLDER...**.
+
+Because these builds are unsigned, Gatekeeper may report that Apple cannot verify the developer. Only proceed if you trust the source and downloaded the artifact from this repository's successful workflow run: in Finder, Control-click the app, choose **Open**, and confirm **Open**. If macOS instead provides **Open Anyway**, review the warning and use **System Settings → Privacy & Security → Open Anyway**. Do not disable Gatekeeper globally.
+
+### Optional signing and notarization
+
+For distribution outside trusted testers, an Apple Developer Program membership, a **Developer ID Application** certificate, and Apple notarization credentials are recommended. Store the signing certificate and passwords as GitHub Actions secrets, then expose them only to the `Package macOS app (unsigned by default)` step as `CSC_LINK` and `CSC_KEY_PASSWORD`. To notarize, also expose `APPLE_ID`, `APPLE_APP_SPECIFIC_PASSWORD`, and `APPLE_TEAM_ID` (or configure Apple's App Store Connect API key credentials supported by electron-builder). Keep all certificate and notarization credentials out of the repository. With no signing secrets configured, the workflow continues to produce unsigned builds.
 
 ## Assets and independence
 
@@ -78,6 +90,6 @@ This is a self-contained Electron + React + TypeScript project, with its own pac
 
 ## Verification
 
-Verified locally on Linux: strict type/syntax checks, production build, all four focused tests, and a real Electron/Xvfb smoke test with zero renderer errors. Smoke testing covered bundled-font loading, settings persistence through the folder-picker bridge, and Markdown writes. macOS workflows are configured but have not run remotely in this session.
+Verified locally on Linux: strict type/syntax checks, production build, all four focused tests, and a real Electron/Xvfb smoke test with zero renderer errors. Smoke testing covered bundled-font loading, settings persistence through the folder-picker bridge, and Markdown writes. macOS artifacts are built remotely by GitHub Actions.
 
 The locked electron-builder packaging toolchain has six moderate dependency advisories from the dependency audit. Review `npm audit` when updating packaging dependencies.
