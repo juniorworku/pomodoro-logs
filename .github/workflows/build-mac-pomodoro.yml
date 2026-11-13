@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: ${{ github.event_name == 'push' && fromJSON('["arm64", "x64"]') || (inputs.architecture == 'both' && fromJSON('["arm64", "x64"]') || fromJSON(format('["{0}"]', inputs.architecture))) }}
+        arch: ${{ startsWith(github.ref, 'refs/tags/x64-') && fromJSON('["x64"]') || (github.event_name == 'push' && fromJSON('["arm64", "x64"]') || (inputs.architecture == 'both' && fromJSON('["arm64", "x64"]') || fromJSON(format('["{0}"]', inputs.architecture)))) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

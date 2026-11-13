@@ -67,7 +67,7 @@ The test uses a temporary app profile and vault. It stubs only the native direct
 
 ## macOS workflow
 
-Publish **this directory as its own repository root**, including `.github` and `package-lock.json`. No sibling project or shared workspace is needed. The workflow runs on every push using `macos-latest`, tests/builds, and uploads separate **arm64 (Apple Silicon)** and **x64 (Intel)** DMG and ZIP artifacts. Manual runs default to **x64**; choose arm64 or both when needed. Download artifacts from the GitHub Actions run. ZIPs contain the `.app` bundles.
+Publish **this directory as its own repository root**, including `.github` and `package-lock.json`. No sibling project or shared workspace is needed. The workflow runs on every push using `macos-latest`, tests/builds, and uploads separate **arm64 (Apple Silicon)** and **x64 (Intel)** DMG and ZIP artifacts. Manual runs default to **x64**; choose arm64 or both when needed. To trigger a push-based x64-only run, push a tag whose name starts with `x64-`. Download artifacts from the GitHub Actions run. ZIPs contain the `.app` bundles.
 
 Bundles are **unsigned by default**. macOS packaging runs remotely; development on Linux uses no Swift, Xcode, or macOS-only APIs.
 
