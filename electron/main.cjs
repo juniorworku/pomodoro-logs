@@ -50,11 +50,12 @@ else {
         });
       function create() {
         win = new BrowserWindow({
-          width: 1100,
-          height: 850,
-          minWidth: 760,
-          minHeight: 650,
+          width: 760,
+          height: 700,
+          minWidth: 360,
+          minHeight: 420,
           backgroundColor: "#f5f2eb",
+          icon: path.join(__dirname, "../build/icon.png"),
           webPreferences: {
             preload: path.join(__dirname, "preload.cjs"),
             contextIsolation: true,

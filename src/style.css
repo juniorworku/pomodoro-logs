@@ -181,6 +181,8 @@ h2 {
 }
 .tomato svg {
   display: block;
+  width: 100%;
+  height: auto;
 }
 .ticking svg {
   animation: tick 1s steps(2, end) infinite;
@@ -293,7 +295,7 @@ footer {
   background: var(--paper);
   color: var(--ink);
   padding: 24px;
-  width: 620px;
+  width: min(620px, 100%);
   max-height: 90vh;
   overflow: auto;
 }
@@ -381,6 +383,128 @@ footer {
     font-size: 13px;
   }
   .eyebrow {
+    font-size: 16px;
+  }
+}
+@media (max-width: 560px) {
+  .desktop {
+    padding: 8px;
+  }
+  .window {
+    max-width: none;
+  }
+  .titlebar {
+    gap: 8px;
+    padding: 8px;
+    font-size: 18px;
+  }
+  .titlebar button {
+    font-size: 14px;
+    padding: 4px 6px;
+  }
+  main {
+    padding: 12px;
+  }
+  .intro,
+  h1,
+  .subtitle,
+  footer {
+    display: none;
+  }
+  .game {
+    padding: 10px;
+  }
+  .tabs {
+    gap: 4px;
+  }
+  .tabs button {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 3px;
+    font-size: 15px;
+  }
+  .timer-stage {
+    gap: 12px;
+    padding: 10px 0;
+  }
+  .tomato {
+    width: 72px;
+    flex: 0 0 72px;
+  }
+  .clock {
+    font-size: clamp(44px, 13vw, 64px);
+    letter-spacing: 1px;
+  }
+  .lives {
+    font-size: 18px;
+  }
+  .lives small {
+    display: none;
+  }
+  .controls {
+    gap: 6px;
+  }
+  .controls button {
+    flex: 1;
+    min-width: 0;
+    padding: 5px 4px;
+    font-size: 16px;
+  }
+  .metadata {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 8px;
+    margin-top: 16px;
+  }
+  label {
+    font-size: 15px;
+  }
+  .metadata input {
+    padding: 7px;
+    font-size: 18px;
+  }
+  .status {
+    gap: 8px;
+    margin-top: 14px;
+    padding: 8px;
+    font-size: 14px;
+  }
+  .status button {
+    font-size: 14px;
+    padding: 4px;
+  }
+  .shade {
+    padding: 8px;
+  }
+  .modal {
+    padding: 14px;
+  }
+  .modal header {
+    margin-bottom: 12px;
+  }
+  .modal h2 {
+    font-size: 23px;
+  }
+  .modal > label {
+    margin-top: 14px;
+  }
+  .durations {
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .durations label {
+    font-size: 14px;
+  }
+  .durations input {
+    padding: 6px;
+    font-size: 18px;
+  }
+  .path {
+    font-size: 18px;
+  }
+  .modal > .primary {
+    margin-top: 16px;
+  }
+  .muted {
     font-size: 16px;
   }
 }

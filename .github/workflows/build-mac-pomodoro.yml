@@ -2,6 +2,15 @@ name: Build Pomodoro Logs macOS
 on:
   push:
   workflow_dispatch:
+    inputs:
+      architecture:
+        description: Architecture to package for manual runs
+        type: choice
+        options:
+          - x64
+          - arm64
+          - both
+        default: x64
 permissions:
   contents: read
 jobs:
@@ -10,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [arm64, x64]
+        arch: ${{ github.event_name == 'push' && fromJSON('["arm64", "x64"]') || (inputs.architecture == 'both' && fromJSON('["arm64", "x64"]') || fromJSON(format('["{0}"]', inputs.architecture))) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

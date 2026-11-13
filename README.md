@@ -22,6 +22,7 @@ The invisible session marker deduplicates recovered or retried sessions. Existin
 Changing durations applies immediately to an idle timer; reset a paused/active timer to use new durations. Notifications and chiptunes fire for all interval completions, while only work sessions are logged.
 
 The workflow is `.github/workflows/build-mac-pomodoro.yml`. Vite's development port is **5173**.
+The resizable desktop window opens at **760 × 700** and can shrink to **360 × 420**; at compact widths, the pixel-art layout scales down while retaining the timer, controls, and session fields.
 
 Tests cover Markdown append preservation/idempotency, safe paths/config persistence, wall-clock pause/resume, and every-fourth-session long breaks. The Electron smoke test also verifies start/pause/reset, short/long selection, mute, actual completion logging, and restart deduplication.
 
@@ -66,7 +67,7 @@ The test uses a temporary app profile and vault. It stubs only the native direct
 
 ## macOS workflow
 
-Publish **this directory as its own repository root**, including `.github` and `package-lock.json`. No sibling project or shared workspace is needed. The workflow runs on every push or manual dispatch using `macos-latest`, tests/builds, and uploads separate **arm64 (Apple Silicon)** and **x64 (Intel)** DMG and ZIP artifacts. Download them from the GitHub Actions run. ZIPs contain the `.app` bundles.
+Publish **this directory as its own repository root**, including `.github` and `package-lock.json`. No sibling project or shared workspace is needed. The workflow runs on every push using `macos-latest`, tests/builds, and uploads separate **arm64 (Apple Silicon)** and **x64 (Intel)** DMG and ZIP artifacts. Manual runs default to **x64**; choose arm64 or both when needed. Download artifacts from the GitHub Actions run. ZIPs contain the `.app` bundles.
 
 Bundles are **unsigned by default**. macOS packaging runs remotely; development on Linux uses no Swift, Xcode, or macOS-only APIs.
 
@@ -84,7 +85,7 @@ For distribution outside trusted testers, an Apple Developer Program membership,
 
 ## Assets and independence
 
-The VT323 pixel font is bundled locally, including its SIL Open Font License in `src/assets/OFL.txt` and `public/VT323-OFL.txt` (copied into the built app). Source: [Google Fonts VT323](https://github.com/google/fonts/tree/main/ofl/vt323). Graphics and sounds are generated locally from code; no remote assets are requested. Reduced-motion preferences disable animation.
+The VT323 pixel font is bundled locally, including its SIL Open Font License in `src/assets/OFL.txt` and `public/VT323-OFL.txt` (copied into the built app). Source: [Google Fonts VT323](https://github.com/google/fonts/tree/main/ofl/vt323). The app icon is supplied as PNG for Linux/window use and ICNS for macOS. Graphics and sounds are generated locally from code; no remote assets are requested. Reduced-motion preferences disable animation.
 
 This is a self-contained Electron + React + TypeScript project, with its own package lock, app identity, settings, preload API, filesystem bridge, assets, tests, and workflow. It imports nothing from the other productivity app.
 
